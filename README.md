@@ -36,3 +36,7 @@ Make sure to deploy the output of `remix build`
 
 - `build/`
 - `public/build/`
+
+### To-Do
+
+- We need a currency variable in the global context, so that we could load the item prices in a particular currency.
