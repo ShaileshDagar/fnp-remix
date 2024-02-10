@@ -11,11 +11,17 @@ import {
 
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
+import rootStylesHref from "./styles/root.css"
 import headerStylesHref from "./styles/header.css"
+import headerSearchStylesHref from "./styles/header-search.css"
+import navbarStylesHref from "./styles/navbar.css"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-  ...(headerStylesHref ? [{ rel: "stylesheet", href: headerStylesHref }] : [])
+  ...(rootStylesHref ? [{ rel: "stylesheet", href: rootStylesHref }] : []),
+  ...(headerStylesHref ? [{ rel: "stylesheet", href: headerStylesHref }] : []),
+  ...(headerSearchStylesHref ? [{ rel: "stylesheet", href: headerSearchStylesHref }] : []),
+  ...(navbarStylesHref ? [{ rel: "stylesheet", href: navbarStylesHref }] : [])
 ];
 
 export default function App() {
@@ -25,6 +31,7 @@ export default function App() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ferns & Petals</title>
         <Meta />
         <Links />
       </head>

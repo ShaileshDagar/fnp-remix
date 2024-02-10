@@ -1,0 +1,137 @@
+/* Styling for the search container */
+#search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Aligning items horizontally */
+    background-color: #707428;
+    padding: 10px;
+  }
+  
+  img {
+    max-height: 50px;
+  }
+  /* Styling for the logo image */
+  #search img#logo {
+    height: 100%; /* Sizing the image according to the height of the search div */
+  }
+  
+  /* Styling for the search form */
+  #search form {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Styling for the search input */
+  #search form input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  /* Styling for the search button */
+  #search form button {
+    padding: 8px 15px;
+    background-color: #7d8035;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Styling for the dropdown container */
+  .dropdown-container {
+    position: relative;
+  }
+  
+  /* Styling for the dropdown span */
+  .dropdown-container > span {
+    cursor: pointer;
+  }
+  
+  /* Styling for the dropdown form */
+  .dropdown-container #pincode {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Styling for the dropdown form input */
+  .dropdown-container form input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  /* Styling for the dropdown form button */
+  .dropdown-container form button {
+    padding: 8px 15px;
+    background-color: #7d8035;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for the dropdown */
+  .dropdown-container:hover #pincode {
+    display: flex;
+  }
+  
+  /* Styling for the navigation link */
+  #search a {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Styling for the navigation link image */
+  #search a img {
+    height: auto; /* Allow the browser to maintain aspect ratio */
+  }
+  
+  /* Styling for the second dropdown container */
+  .dropdown-container-2 {
+    position: relative;
+    margin-left: 20px; /* Adding margin between elements */
+  }
+  
+  /* Styling for the second dropdown image */
+  .dropdown-container-2 img {
+    height: auto; /* Allow the browser to maintain aspect ratio */
+  }
+  
+  /* Styling for the dropdown content */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Styling for the dropdown content list */
+  .dropdown-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Styling for the dropdown content list items */
+  .dropdown-content li {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  /* Hover effect for the dropdown */
+  .dropdown-container-2:hover .dropdown-content {
+    display: flex;
+    background-color: #707428;
+  }
+  

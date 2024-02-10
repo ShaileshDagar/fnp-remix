@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import NavBar from "~/Components/Navbar";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,6 +10,8 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   return (
-    <div>Landing Page Goes here!</div>
+    <div>
+      <NavBar />
+    </div>
   );
 }
