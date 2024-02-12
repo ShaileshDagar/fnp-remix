@@ -15,13 +15,15 @@ import rootStylesHref from "./styles/root.css"
 import headerStylesHref from "./styles/header.css"
 import headerSearchStylesHref from "./styles/header-search.css"
 import navbarStylesHref from "./styles/navbar.css"
+import authStylesHref from "./styles/auth-form.css"
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
   ...(rootStylesHref ? [{ rel: "stylesheet", href: rootStylesHref }] : []),
   ...(headerStylesHref ? [{ rel: "stylesheet", href: headerStylesHref }] : []),
   ...(headerSearchStylesHref ? [{ rel: "stylesheet", href: headerSearchStylesHref }] : []),
-  ...(navbarStylesHref ? [{ rel: "stylesheet", href: navbarStylesHref }] : [])
+  ...(navbarStylesHref ? [{ rel: "stylesheet", href: navbarStylesHref }] : []),
+  ...(authStylesHref ? [{ rel: "stylesheet", href: authStylesHref }] : []),
 ];
 
 export default function App() {

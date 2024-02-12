@@ -40,3 +40,4 @@ Make sure to deploy the output of `remix build`
 ### To-Do
 
 - We need a currency variable in the global context, so that we could load the item prices in a particular currency.
+- Figure out how to export css from the route that uses that css. Right now we're exporting all css from root.tsx.
