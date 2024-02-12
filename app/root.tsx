@@ -17,7 +17,7 @@ import headerStylesHref from "./styles/header.css"
 import headerSearchStylesHref from "./styles/header-search.css"
 import navbarStylesHref from "./styles/navbar.css"
 import authStylesHref from "./styles/auth-form.css"
-import { client } from "./pocketbase";
+import { client, getUserCartItemCount } from "./pocketbase";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -33,7 +33,7 @@ export async function loader(){
   if(!isUserValid)
     return 0
   //fetch logged in user's cart items count from db
-  return 1
+  return getUserCartItemCount()
 }
 
 export default function App() {

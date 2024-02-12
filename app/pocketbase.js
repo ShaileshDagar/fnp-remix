@@ -6,13 +6,14 @@ export const client = new PocketBase(url);
 
 export async function login(email, password) {
     try {
-        await client.collection("users").authWithPassword(email, password)
+        const authData = await client.collection("users").authWithPassword(email, password)
+        // console.log(authData)
     } catch(err) {
         throw {
             message: "Error logging in"
         }
     }
-
+    addItemToCart()
 }
 
 export async function oAuthLogin() {
@@ -39,6 +40,21 @@ export async function signup(email, password) {
     }
     await client.collection("users").create(data) 
     await login(email, password)
+}
+
+export async function getUserCartItemCount() {
+    const userId = client.authStore.model.id
+    const userData = await client.collection('users').getOne(userId, {fields: "cart_items"});
+    return userData.cart_items.length
+}
+
+export async function addItemToCart() {
+    const userId = client.authStore.model.id
+    const userData = await client.collection('users').getOne(userId, {fields: "cart_items"});
+    console.log(userData)
+    userData.cart_items.push("3dy19ye66mgjhe3")
+    const updatedData = await client.collection('users').update(userId, userData);
+    console.log(updatedData)
 }
 
 export async function getList() {
