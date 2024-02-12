@@ -1,10 +1,10 @@
-import { NavLink, Form } from "@remix-run/react";
+import { NavLink, Form, useLoaderData } from "@remix-run/react";
 
-export default function Header() {
+export default function Header(props: {cartItemsCount: number}) {
     return (
       <header id="site-header">
         <TopTape />
-        <Search />
+        <Search cartItemsCount={props.cartItemsCount}/>
       </header>
     )
 }
@@ -34,7 +34,8 @@ function TopTape() {
     )
 }
 
-function Search() {
+function Search(props: {cartItemsCount: number}) {
+  // const cartItemsCount = useLoaderData<typeof loader>()
     return (
       <div id="search">
         <img id="logo" src="../logo.jpg" alt="fnp logo"/>
@@ -56,6 +57,7 @@ function Search() {
           </ul>
         </div>
         <NavLink to="/cart"><img src="../cart1.png"/></NavLink>
+        <h1>{props.cartItemsCount}</h1>
       </div>
     )
 }
