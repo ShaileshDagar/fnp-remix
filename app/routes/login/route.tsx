@@ -19,13 +19,13 @@ export async function action({request}: ActionFunctionArgs) {
     }
     else
         await oAuthLogin()
-    return redirect("/cart")
+    return redirect("/")
 }
 
 export function loader() {
     const isUserValid = client.authStore.isValid
     if(isUserValid)
-        throw redirect("/cart")
+        throw redirect("/")
     return null
   }
 

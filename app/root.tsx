@@ -7,6 +7,8 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  json,
+  redirect,
   useLoaderData,
 } from "@remix-run/react";
 
@@ -17,7 +19,7 @@ import headerStylesHref from "./styles/header.css"
 import headerSearchStylesHref from "./styles/header-search.css"
 import navbarStylesHref from "./styles/navbar.css"
 import authStylesHref from "./styles/auth-form.css"
-import { client, getUserCartItemCount } from "./pocketbase";
+import { client, getCartItems, getUserCartItemIds, getUserCartItemsCount, logout } from "./pocketbase";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
@@ -28,12 +30,19 @@ export const links: LinksFunction = () => [
   ...(authStylesHref ? [{ rel: "stylesheet", href: authStylesHref }] : []),
 ];
 
+export function action() {
+  //LOGOUT
+  logout()
+  return redirect("/")
+}
+
 export async function loader(){
   const isUserValid = client.authStore.isValid
-  if(!isUserValid)
-    return 0
-  //fetch logged in user's cart items count from db
-  return getUserCartItemCount()
+  let numOfCartItems = 0;
+  if(isUserValid){
+      numOfCartItems = await getUserCartItemsCount()
+  }
+  return json({numOfCartItems: numOfCartItems, isUserValid: isUserValid})
 }
 
 export default function App() {
@@ -50,7 +59,7 @@ export default function App() {
       </head>
       
       <body>
-        <Header cartItemsCount={loaderData}/>
+        <Header cartItemsCount={loaderData.numOfCartItems} isUserValid={loaderData.isUserValid}/>
         <Outlet />
         <Footer />
         <ScrollRestoration />

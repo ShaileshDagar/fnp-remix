@@ -1,14 +1,8 @@
 import { ActionFunctionArgs } from "@remix-run/node";
+import { Form } from "@remix-run/react";
 
-export async function action({request}: ActionFunctionArgs) {
-    const itemId = (await request.formData()).get("item")
-    //Add the corresponding item to user's cart
-    return null
-}
-
-export default function ItemsByCategory(props: {category: string, items: {id: string, name: string, imageUrl: string, category: string, price: number}[]}){
-    //Map list of items to an item
-    const itemList = props.items.map(item => <Item item={item}/>)
+export default function ItemsByCategory(props: {category: string, items: {id: string, name: string, image: string, category: string, price: number}[]}){
+    const itemList = props.items.map(item => <Item key={item.id} item={item}/>)
     return (
         <ul>
             {itemList}
@@ -16,16 +10,19 @@ export default function ItemsByCategory(props: {category: string, items: {id: st
     )
 }
 
-function Item(props: {item: {id: string, name: string, imageUrl: string, category: string, price: number}}){
+function Item(props: {item: {id: string, name: string, image: string, category: string, price: number}}){
     return (
         <div>
-            <img src={props.item.imageUrl} alt="Category Image" onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+            {/* <img src={props.item.image} alt="Category Image" onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                     e.currentTarget.onerror = null;
                     e.currentTarget.src = "../../category-placeholder-image.jpg"
-            }}/>
+            }}/> */}
+            <img src="../../category-placeholder-image.jpg" alt="placeholder image" />
             <p>{props.item.name}</p>
             <p>{props.item.price}</p>
-            <button type="submit" name="item" value={props.item.id}>Add to Cart</button>
+            <Form method="POST">
+                <button type="submit" name="_item" value={props.item.id}>Add to Cart</button>
+            </Form>
         </div>
     )
 }

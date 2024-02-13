@@ -1,37 +1,46 @@
 import { NavLink, Form, useLoaderData } from "@remix-run/react";
+import { client } from "~/pocketbase";
 
-export default function Header(props: {cartItemsCount: number}) {
+// export async function loader() {
+//   return client.authStore.isValid
+// }
+
+export default function Header(props: {cartItemsCount: number, isUserValid: boolean}) {
     return (
       <header id="site-header">
-        <TopTape />
+        <TopTape isUserValid={props.isUserValid}/>
         <Search cartItemsCount={props.cartItemsCount}/>
       </header>
     )
 }
 
-function TopTape() {
-    return (
-      <div id="top-tape">
-        <label htmlFor="currency-selector">Currency{"  "}</label>
-        <select id="currency-selector">
-          <option value="USD">USD</option>
-          <option value="INR">INR</option>
-          <option value="CAD">CAD</option>
-        </select>
-        <NavLink to="/">Corporate Gifts</NavLink>
-        <NavLink to="/">Weddings</NavLink>
-        <nav className="dropdown">
-          <span>More</span>
-          <div className="dropdown-content">
-            <ul>
-              <NavLink to="/" title="Link to Home Page">Link 1</NavLink>
-              <NavLink to="/" title="Link to Home Page">Link 2</NavLink>
-              <NavLink to="/" title="Link to Home Page">Link 3</NavLink>
-            </ul>
-          </div>
-        </nav>
-      </div>
-    )
+function TopTape(props: {isUserValid: boolean}) {
+  // const isUserValid = useLoaderData<typeof loader>()
+  return (
+    <div id="top-tape">
+      <label htmlFor="currency-selector">Currency{"  "}</label>
+      <select id="currency-selector">
+        <option value="USD">USD</option>
+        <option value="INR">INR</option>
+        <option value="CAD">CAD</option>
+      </select>
+      <NavLink to="/">Corporate Gifts</NavLink>
+      <NavLink to="/">Weddings</NavLink>
+      {!props.isUserValid && <NavLink to="login">Login</NavLink>}       {/*Conditionally render when not logged in*/}
+      {!props.isUserValid &&<NavLink to="signup">Sign Up</NavLink>}    {/*Conditionally render when not logged in*/}
+      {props.isUserValid && <Form method="post"><button type="submit">Logout</button></Form>}
+      <nav className="dropdown">
+        <span>More</span>
+        <div className="dropdown-content">
+          <ul>
+            <NavLink to="/" title="Link to Home Page">Link 1</NavLink>
+            <NavLink to="/" title="Link to Home Page">Link 2</NavLink>
+            <NavLink to="/" title="Link to Home Page">Link 3</NavLink>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  )
 }
 
 function Search(props: {cartItemsCount: number}) {

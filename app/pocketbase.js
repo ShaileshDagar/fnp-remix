@@ -13,7 +13,8 @@ export async function login(email, password) {
             message: "Error logging in"
         }
     }
-    addItemToCart()
+    // addItemToCart()
+    // getAllItems()
 }
 
 export async function oAuthLogin() {
@@ -42,20 +43,70 @@ export async function signup(email, password) {
     await login(email, password)
 }
 
-export async function getUserCartItemCount() {
+export async function getAllItems() {
+    const RecordList = await client.collection('items').getList(1, 5, {
+        fields: "id, name, image, price, category"
+    });
+    // console.log(RecordList.items)
+    return RecordList.items
+}
+
+export async function getUserCartItemIds() {
+    const userId = client.authStore.model.id
+    const userData = await client.collection('users').getOne(userId, {fields: "cart_items"});
+    return userData.cart_items
+}
+
+export async function getUserCartItemsCount() {
     const userId = client.authStore.model.id
     const userData = await client.collection('users').getOne(userId, {fields: "cart_items"});
     return userData.cart_items.length
 }
 
-export async function addItemToCart() {
+export async function getCartItems() {
+    const userId = client.authStore.model.id
+    // console.log(userId)
+    const userData = await client.collection('users').getOne(userId, {fields: "cart_items"});
+    // console.log(userData)
+    const cartItemIds = userData.cart_items
+    // console.log(cartItemIds)
+    if(cartItemIds === undefined || cartItemIds.length == 0)
+        return []
+    let filter = `id = "${cartItemIds[0]}"`
+    for(let i=1; i<cartItemIds.length; i=i+1){
+        filter += ` || id = "${cartItemIds[i]}"`
+    }
+    console.log(filter)
+    const recordList = await client.collection('items').getList(1, 5, {
+        filter: filter,
+        fields: "id, name, image, price, category"
+    });
+    console.log(recordList.items)
+    return recordList.items
+}
+
+export async function addItemToCart(itemId) {
     const userId = client.authStore.model.id
     const userData = await client.collection('users').getOne(userId, {fields: "cart_items"});
     console.log(userData)
-    userData.cart_items.push("3dy19ye66mgjhe3")
+    userData.cart_items.push(itemId)
     const updatedData = await client.collection('users').update(userId, userData);
     console.log(updatedData)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export async function getList() {
     return await client.collection("tasks").getList(1, 50, {sort: 'created'})
